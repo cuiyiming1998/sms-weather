@@ -35,11 +35,9 @@ def get_ai_result(weather_data: dict, prompt: str = "") -> str:
    - 下雨：提醒带伞，语气要像是在担心她淋湿。
    - 降温：用“魔法攻击”、“冻坏小仙女”等可爱词汇强调保暖。
 2. **穿衣建议**：
-   - 冷天（<10℃）：推荐“软乎乎的羽绒服”、“毛茸茸的围巾”。
-   - 舒适（10-20℃）：推荐“风衣”、“卫衣”、“衬衫+针织背心”。
-   - 热天（>25℃）：推荐“漂亮的小裙子”、“清凉防晒衣”。
+   - 根据不同温度，推荐合适的出行穿衣推荐。
 3. **污染及生活指数**:
-   - 根据不同的污染情况, 生活指数(air_quality和comfort)，推荐是否需要戴口罩，涂防晒霜等KKJ好防护
+   - 根据不同的污染情况, 生活指数(air_quality和comfort)，推荐是否需要戴口罩，涂防晒霜等做好防护
 
 
 4. **生成文本**：将信息串联成一段甜甜的短信。
@@ -58,7 +56,7 @@ def get_ai_result(weather_data: dict, prompt: str = "") -> str:
         response = client.chat.completions.create(
             model="glm-5",
             messages=[{"role": "user", "content": final_prompt}],
-            thinking={"type": "disabled"},
+            thinking={"type": "enabled"},
         )
         return response.choices[0].message.content or "AI回复生成失败"  # type: ignore
     except Exception as e:
